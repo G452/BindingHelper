@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BaseTitleView">
+        <!--标题-->
+        <attr name="baseTitle" format="string" />
+        <!--右侧文字-->
+        <attr name="rightText" format="string" />
+        <!--右侧文字颜色-->
+        <attr name="rightTextColor" format="color" />
+        <!--右侧图片-->
+        <attr name="rightImg" format="reference" />
+        <!--返回键图片-->
+        <attr name="backImg" format="reference" />
+        <!--是否有返回键-->
+        <attr name="isShowBack" format="boolean" />
+        <!--是否设置顶部Padding-->
+        <attr name="isTopPadding" format="boolean" />
+    </declare-styleable>
+
+</resources>
