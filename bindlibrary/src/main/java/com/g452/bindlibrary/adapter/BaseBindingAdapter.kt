@@ -59,11 +59,6 @@ abstract class BaseBindingAdapter<Binding : ViewDataBinding, ITEM> : RecyclerVie
     fun setOnRecycleItemClickLinter(mOnRecycleItemClickLinter: ((ITEM, Int) -> Unit)) {
         this.mOnRecycleItemClickLinter = mOnRecycleItemClickLinter
     }
-
-    var mOnRecycleViewClickLinter: ((ITEM, List<View>) -> Unit)? = null
-    fun setOnRecycleViewClickLinter(mOnRecycleViewClickLinter: ((ITEM, List<View>) -> Unit)) {
-        this.mOnRecycleViewClickLinter = mOnRecycleViewClickLinter
-    }
 }
 
 

@@ -1,5 +1,6 @@
 package com.g452.bindlibrary.util
 
+import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 import com.g452.bindlibrary.App
@@ -22,11 +23,13 @@ object ToastUtil {
             }
             toast?.show()
         } catch (e: Exception) {
+            Log.d("--ToastUtil--Exception",e.toString())
             e.printStackTrace()
         }
     }
 }
 
 fun Any?.showToast() {
+    Log.d("--ToastUtil--",this.toString())
     ToastUtil.showToast(this)
 }

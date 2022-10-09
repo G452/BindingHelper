@@ -1,10 +1,14 @@
 package com.g452.bindlibrary
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import com.g452.bindlibrary.util.UltimateBar
 import java.lang.reflect.ParameterizedType
+
 
 /**
  * author：G
@@ -18,6 +22,10 @@ open class BaseBindingActivity<Binding : ViewDataBinding> : AppCompatActivity() 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UltimateBar.newImmersionBuilder().applyNav(false).build(this).apply()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
         binding.lifecycleOwner = this
         setContentView(binding.root)
         initBinding()

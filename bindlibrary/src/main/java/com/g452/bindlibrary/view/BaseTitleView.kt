@@ -14,11 +14,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.g452.bindlibrary.R
 import com.g452.bindlibrary.extentions.dp2px
 import com.g452.bindlibrary.extentions.getStatusBarHeight
+import com.g452.bindlibrary.extentions.setVisible
 import com.g452.bindlibrary.extentions.textColor
 
 /**
@@ -50,8 +52,13 @@ class BaseTitleView @JvmOverloads constructor(context: Context, attrs: Attribute
                 attr.getString(R.styleable.BaseTitleView_rightText)?.let { if (it.isNotEmpty()) setRightText(it) }
                 attr.getResourceId(R.styleable.BaseTitleView_rightImg, -1).let { if (it != -1) setRightImg(it) }
                 attr.getResourceId(R.styleable.BaseTitleView_backImg, -1).let { if (it != -1) setBackImg(it) }
+                isShowBackImg(attr.getBoolean(R.styleable.BaseTitleView_isShowBack, true))
             }
         }
+    }
+
+    private fun isShowBackImg(isShow: Boolean) {
+        backView.setVisible(isShow)
     }
 
     /**
@@ -60,11 +67,11 @@ class BaseTitleView @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun initBackView(): ImageView {
         return ImageView(context).apply {
             setImageResource(R.drawable.ic_black_back)
-            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dp2px(50)).apply {
+            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dp2px(24)).apply {
                 topToTop = top
+                bottomToBottom = bottom
                 leftToLeft = left
             }
-            setPadding(context.dp2px(10), 0, context.dp2px(10), 0)
             addView(this, layoutParams)
         }
     }
@@ -200,10 +207,11 @@ class BaseTitleView @JvmOverloads constructor(context: Context, attrs: Attribute
 
 }
 
+@Preview
 @Composable
 fun BaseTitleView(
     baseTitle: String = "",
-    rightTextColor: Int = -1,
+    rightTextColor: String = "333333",
     isTopPadding: Boolean = true,
     rightText: String = "",
     rightImg: Int = -1,
@@ -212,20 +220,18 @@ fun BaseTitleView(
     rightButtonClick: (View) -> Unit = {},
     backImgClick: (View) -> Unit = { (it.context as Activity).finish() },
 ) {
-    AndroidView(
-        factory = { ctx ->
-            BaseTitleView(ctx).apply {
-                layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                setTitle(baseTitle)
-                isTopPadding(isTopPadding)
-                if (rightText.isNotEmpty()) setRightText(rightText)
-                if (rightText.isNotEmpty()) setRightTextClick(rightTextClick)
-                if (rightImg != -1) setRightImg(rightImg)
-                if (rightImg != -1) setRightImgClick(rightButtonClick)
-                if (rightTextColor != -1) setRightTextColor(rightTextColor)
-                if (backImg != -1) setBackImg(backImg)
-                setBackClick(backImgClick)
-            }
+    AndroidView(factory = { ctx ->
+        BaseTitleView(ctx).apply {
+            layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setTitle(baseTitle)
+            isTopPadding(isTopPadding)
+            setRightTextColor(Color.parseColor(rightTextColor))
+            if (rightText.isNotEmpty()) setRightText(rightText)
+            if (rightText.isNotEmpty()) setRightTextClick(rightTextClick)
+            if (rightImg != -1) setRightImg(rightImg)
+            if (rightImg != -1) setRightImgClick(rightButtonClick)
+            if (backImg != -1) setBackImg(backImg)
+            setBackClick(backImgClick)
         }
-    )
+    })
 }

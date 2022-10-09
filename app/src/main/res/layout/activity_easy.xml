@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EasyActivity"
+        tools:ignore="MissingConstraints">
+
+        <com.g452.bindlibrary.view.BaseTitleView
+            android:id="@+id/baseTitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:baseTitle="我是一个简单页面"
+            app:rightText="点我" />
+
+        <TextView
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/baseTitleView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
